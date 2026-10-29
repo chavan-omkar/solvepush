@@ -1,0 +1,56 @@
+{
+  "manifest_version": 3,
+  "name": "SolvePush - Coding Practice to GitHub",
+  "version": "1.6.0",
+  "minimum_chrome_version": "111",
+  "description": "Creates a public repo per coding site (e.g. 'leetcode-submissions') and pushes every submission to it. Uses the public_repo scope only - no access to private repos.",
+  "permissions": ["storage", "alarms"],
+  "host_permissions": [
+    "https://leetcode.com/*",
+    "https://codeforces.com/*",
+    "https://github.com/login/*",
+    "https://api.github.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "SolvePush"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["platforms/leetcode/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["platforms/leetcode/adapter.js", "content-core.js"],
+      "run_at": "document_start"
+    },
+    {
+      "matches": ["https://codeforces.com/*"],
+      "js": ["platforms/codeforces/adapter.js", "content-core.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["https://www.hackerrank.com/*"],
+      "js": ["platforms/hackerrank/inject.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": ["https://www.hackerrank.com/*"],
+      "js": ["platforms/hackerrank/adapter.js", "content-core.js"],
+      "run_at": "document_start"
+    }
+  ]
+}
