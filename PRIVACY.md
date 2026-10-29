@@ -34,3 +34,7 @@ Everything is stored in `chrome.storage.local` on your device. The token is not 
 ## Contact
 
 moderncodehead@gmail.com
+
+## Contact
+
+Questions or concerns: open an issue at https://github.com/chavan-omkar/solvepush/issues.
